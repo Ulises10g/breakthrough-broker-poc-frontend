@@ -15,17 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - name: Set User Configurations
-        run: |
-          git config --global user.name "Ulises10g"
-          git config --global user.email "anewm@hotmail.com"
-          chmod -R 777 .  # Change permissions as necessary
-      -  name:  Disable  CI  
-      - run:  echo  "CI=false" >> $GITHUB_ENV
       - uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
+          
+      -  name:  Disable  CI  
+      - run:  echo  "CI=false" >> $GITHUB_ENV
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
