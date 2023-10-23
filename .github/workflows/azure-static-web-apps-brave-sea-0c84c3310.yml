@@ -1,5 +1,4 @@
 name: Azure Static Web Apps CI/CD
-
 on:
   push:
     branches:
@@ -8,7 +7,6 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
-
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
@@ -19,14 +17,11 @@ jobs:
         run: |
           git config --global user.name "Ulises10g"
           git config --global user.email "mpadilla@arkusnexus.com"
-          chmod -R 777 .  # Change permissions as necessary
-      -  name:  Disable  CI  
-      - run:  echo  "CI=false" >> $GITHUB_ENV
-          
+          chmod -R 777 . # Change permissions as necessary
+      - name: Disable CI - run: echo "CI=false" >> $GITHUB_ENV
       - uses: actions/checkout@v2
         with:
           submodules: true
-
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -37,7 +32,6 @@ jobs:
           app_location: "/"
           api_location: ""
           output_location: "build"
-
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
